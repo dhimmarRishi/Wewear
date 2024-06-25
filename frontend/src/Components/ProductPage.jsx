@@ -1,10 +1,10 @@
-import { Button, Container, Drawer, List, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack, Typography, colors, styled } from '@mui/material';
+import { Box, Button, Container, Drawer, List, ListItemAvatar, ListItemButton, ListItemText, Paper, Stack, Typography, colors, styled } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { ResProductCard } from './publicComp/ResProductCard/ResProductCard';
 import { ProductContext } from './Context/ProductContext';
-import FilterPanel from './FilterPanel';
 import { blue } from '@mui/material/colors';
 import { AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from 'react-router-dom';
 
 
 const ColorBadge = styled('button')(({ theme, color }) => (
@@ -27,6 +27,7 @@ function ProductPage() {
     color: ''
   });
   const [filterOpen, setFilterOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleFilterOpen = (newFilterOpen) => {
     setFilterOpen(newFilterOpen)
@@ -36,6 +37,7 @@ function ProductPage() {
     padding: 1,
     fontFamily: 'Space Grotesk'
   }));
+  // console.log(products)
 
 
   const filterProducts = () => {
@@ -161,8 +163,7 @@ function ProductPage() {
           toggleFilterOpen(false)
         }}  >
           <Stack mt={5} m={3}>
-
-          {component}
+            {component}
           </Stack>
 
         </Drawer>
@@ -178,7 +179,10 @@ function ProductPage() {
           overflow: 'scroll'
         }}>
           {filteredProducts.map((ele, index) => (
-            <ResProductCard product={ele} key={ele.name + index} />
+            <Box>
+              <ResProductCard product={ele} key={ele.name + index} onClick={() => navigate(`/products/${ele?.id}`, { state: { ele } })} />
+            </Box>
+
           ))}
         </Container>
       </Stack>
@@ -190,86 +194,3 @@ export default ProductPage;
 
 
 
-
-// import { Button, Container, List, ListItem, ListItemButton, ListItemText, Paper, Stack, Typography, colors, styled } from '@mui/material'
-// import React, { useContext, useEffect, useState } from 'react'
-// import { ResProductCard } from './publicComp/ResProductCard/ResProductCard'
-// import { ProductContext } from './Context/ProductContext'
-// import FilterPanel from './FilterPanel'
-// import { blue } from '@mui/material/colors'
-
-
-// function ProductPage() {
-
-//   const StyledFilterItem = styled('span')(({theme}) => ({
-//     // backgroundColor: 'gray'
-//     marginTop: 2,
-//     padding: 1,
-//     fontFamily : 'Space Grotesk'
-//   }))
-
-//   const { products } = useContext(ProductContext);
-//   var [filteredProducts, setFilteredProducts] = useState(products)
-//   var [filter, setFilter] = useState({
-//     type: '',
-//     color: ''
-//   })
-
-//   const filterProducts = async () => {
-//     // filteredProducts = products;
-//     let temp = await products.filter((product) => {
-//       return product?.name?.toLowerCase().includes(filter?.type?.toLowerCase())
-//         && product?.color?.toLowerCase().includes(filter?.color?.toLowerCase())
-//     });
-//     setFilteredProducts(temp)
-//     console.log(filter)
-//   }
-
-//   useEffect(() => {
-//     filterProducts();
-//   }, [filter])
-
-//   // console.log(filteredProducts)
-
-
-//   return (
-//     <Stack direction={'row'} >
-//       <Stack direction={'column'} display={'flex'} sx={{ width: 160 }} ml={1} mt={2}  >
-//         <Typography mb={3} ml={1} fontFamily={'Space Grotesk'} fontWeight={'bold'}>
-//           Filter
-//         </Typography>
-//         <List component='nav'>
-//           <ListItemButton onClick={() => {
-//             setFilter(...filter , {type : 'shirt'})
-//           }}>
-//             <StyledFilterItem >Shirts</StyledFilterItem>
-//           </ListItemButton>
-
-//         </List>
-
-//       </Stack>
-
-//       <Container maxWidth={'100%'} sx={{
-//         display: 'flex',
-//         flexDirection: 'row',
-//         flexWrap: 'wrap',
-//         justifyContent: 'flex-start',
-//         padding: 0,
-//         gap: 2,
-//         maxHeight: '80vh',
-//         overflow: 'scroll'
-//       }} >
-
-//         {filteredProducts.map((ele, index) => {
-//           return (
-//             <ResProductCard product={ele} key={ele.name + index} />
-//           )
-//         })}
-
-//       </Container>
-//     </Stack>
-
-//   )
-// }
-
-// export default ProductPage

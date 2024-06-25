@@ -1,6 +1,7 @@
 const express = require('express');
 const {products, homeProducts}  = require('./data');
 const cors = require('cors')
+const fs = require('file-system')
 require('dotenv').config
 
 const PORT = process.env.PORT || 6060;
@@ -15,7 +16,7 @@ app.use(cors({
 // app.use('/api/user' , authRouter)
 
 app.get('/api/products' , ( req , res ) => {
-    console.log('Sending Product data');
+
     res.json({product : products})
 } )
 
@@ -23,6 +24,7 @@ app.get('/api/homeProducts' , (req , res) => {
     console.log('Sending Home Products');
     res.json({homeProducts : homeProducts})
 })
+
 
 
 // connectToDB();
