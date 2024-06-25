@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { SiStylelint } from "react-icons/si";
 import AppBar from "@mui/material/AppBar"
 import { Badge, Box, Button, Divider, Drawer, Icon, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, TextField, Typography, styled } from '@mui/material'
@@ -7,11 +7,13 @@ import { CiSearch } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from 'react-router-dom';
+import { ProductContext } from './Context/ProductContext';
 
 
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const {cart} = useContext(ProductContext)
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen)
@@ -26,7 +28,7 @@ function Navbar() {
             <ListItemIcon color='black' sx={{ fontSize: '1.5rem', color: 'black' }}>
               <SiStylelint />
             </ListItemIcon>
-            <ListItemText primary={"Mahabis"} sx={{ fontWeight: 'bold' }} />
+            <ListItemText primary={"WeWear"} sx={{ fontWeight: 'bold' }} />
           </ListItemButton>
         </ListItem>
         <Divider />
@@ -77,7 +79,7 @@ function Navbar() {
           onClick={toggleDrawer(true)}>
           <GiHamburgerMenu />
         </IconButton>
-        <Link to={'/home'} style={{ textDecoration : 'none' , color: 'black'}}>
+        <Link to={'/home'} style={{ textDecoration: 'none', color: 'black' }}>
           <Box display={'flex'} fontSize={'2rem'} pl={2}>
             <IconButton sx={{ mr: 1, color: 'black' }} >
 
@@ -95,7 +97,7 @@ function Navbar() {
               justifyContent={'center'}
               pt={0.2}
               letterSpacing={2}
-              sx={{ display: { xs: 'none', md: 'block' } }}>Mahabis</Typography>
+              sx={{ display: { xs: 'none', md: 'block' } }}>WeWear</Typography>
           </Box>
         </Link>
 
@@ -117,20 +119,25 @@ function Navbar() {
 
           </Box>
           <Box display={'flex'} mr={2}>
-            <IconButton type='button'>
-              <CiUser color='black' />
-            </IconButton>
-            <TextField placeholder='Search' size='small'  variant='standard' sx = {
-              {mt: '7px'}
+            <Link to='/account/login'>
+              <IconButton type='button' >
+                <CiUser color='black' />
+              </IconButton>
+            </Link>
+
+            <TextField placeholder='Search' size='small' variant='standard' sx={
+              { mt: '7px' }
             } />
             <IconButton type='button'>
               <CiSearch color='black' />
             </IconButton>
             <IconButton>
+              <Link to={'/account/cart'}>
 
-              <Badge color="error" badgeContent={'0'}  >
-                <HiOutlineShoppingBag color='black' />
-              </Badge>
+                <Badge color="error" badgeContent={cart.length}  >
+                  <HiOutlineShoppingBag color='black' />
+                </Badge>
+              </Link>
             </IconButton>
           </Box>
         </Box>

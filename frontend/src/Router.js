@@ -5,6 +5,7 @@ import AppLayout from "./Components/AppLayout";
 import Home from "./Components/Home";
 import ProductPage from "./Components/ProductPage";
 import SingleProduct from "./Components/SingleProduct";
+import CartPage from "./Components/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+          },
+          {
+            path: "cart",
+            element: <CartPage />,
           },
         ],
       },
@@ -39,7 +44,8 @@ const router = createBrowserRouter([
       {
         path: "products/:productId",
         element: <SingleProduct />
-      }
+      },
+
     ],
   },
 ]);

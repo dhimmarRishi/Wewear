@@ -1,11 +1,11 @@
 import React from 'react'
 import './HomeProductCard.css'
 
-function HomeProductCard(product) {
-  const { image, name, color, price } = product.product;
-  console.log(product)
+function HomeProductCard({product, onClick}) {
+  const { image, name, color, price } = product;
+  // console.log(product)
   return (
-    <div className='p-1 card'>
+    <div className='p-1 card' onClick={onClick}>
       <div className='img-cover'>
         <img src={image} alt="Slipper Image" />
       </div>

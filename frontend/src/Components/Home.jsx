@@ -6,11 +6,13 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { ProductContext } from './Context/ProductContext';
 import {HomeProductCard} from './publicComp/HomeProductCard/HomeProductCard'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
   const { products, loading, err } = useContext(ProductContext)
   const [value, setValue] = React.useState('1');
+  const navigate = useNavigate()
 
 
   console.log(products)
@@ -70,7 +72,7 @@ function Home() {
         maxWidth={'600px'}
         fontFamily={'Space Grotesk'}>
         <Typography variant='h4'>
-          Mahabis
+          WeWear
         </Typography>
         <Typography variant='p' mt={2}>
           Revolutionising footwear through comfort technology and innovative designs.
@@ -89,27 +91,27 @@ function Home() {
           <TabPanel value="1" sx={{ m: 0, p: 1 }} style={{ transitionDuration: '300ms' }} >
             <Box display={'flex'} sx={{ justifyContent: { xs: 'flex-start', md: 'center' }, overflow : 'scroll'}} gap={4} overflow={'scroll'}>
               {/* {console.log(homeProducts)} */}
-              <HomeProductCard product={products[1]} />
-              <HomeProductCard product={products[10]} />
-              <HomeProductCard product={products[32]} />
-
-            </Box>
-          </TabPanel>
-          <TabPanel value="2" sx={{ m: 0, p: 1 }} >
+              <HomeProductCard product={products[1]}  onClick = {() => navigate(`/products/${products[1].id}` ,{state :  products[1]})}/>
+              <HomeProductCard product={products[10]} onClick = {() => navigate(`/products/${products[10].id}`,{state :  products[10]})}/>
+              <HomeProductCard product={products[32]} onClick = {() => navigate(`/products/${products[32].id}`,{state :  products[32]})}/>
+ 
+            </Box> 
+          </TabPanel> 
+          <TabPanel value="2" sx={{ m: 0, p: 1 }} > 
             <Box display={'flex'} sx={{ justifyContent: { xs: 'flex-start', md: 'center' } }} gap={4} overflow={'scroll'}>
 
-              <HomeProductCard product={products[67]} />
-              <HomeProductCard product={products[34]} />
-              <HomeProductCard product={products[20]} />
-
-            </Box>
+              <HomeProductCard product={products[67]} onClick = {() => navigate(`/products/${products[67].id}`, { state : products[67]} )}/>
+              <HomeProductCard product={products[34]} onClick = {() => navigate(`/products/${products[34].id}`, { state : products[34]} )}/>
+              <HomeProductCard product={products[20]} onClick = {() => navigate(`/products/${products[20].id}`, { state : products[20]} )}/>
+ 
+            </Box> 
           </TabPanel>
           <TabPanel value="3" sx={{ m: 0, p: 1 }} >
             <Box display={'flex'} sx={{ justifyContent: { xs: 'flex-start', md: 'center' } }} gap={4} overflow={'scroll'}>
 
-              <HomeProductCard product={products[141]} />
-              <HomeProductCard product={products[121]} />
-              <HomeProductCard product={products[113]} />
+              <HomeProductCard product={products[141]} onClick = {() => navigate(`/products/${products[141].id}`, { state : products[141]} )}/>
+              <HomeProductCard product={products[121]} onClick = {() => navigate(`/products/${products[121].id}`, { state : products[121]} )}/>
+              <HomeProductCard product={products[113]} onClick = {() => navigate(`/products/${products[113].id}`, { state : products[113]} )}/>
 
             </Box>
           </TabPanel>

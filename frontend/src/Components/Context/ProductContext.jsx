@@ -6,6 +6,25 @@ const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [err, setErr] = useState('');
+    const [cart, setCart] = useState([])
+
+    const addToCart = (item) => {
+        // Check if the item is already in the cart
+        const isItemInCart = cart.some(
+            (cartItem) => cartItem.id === item.id && cartItem.size === cartItem.size
+        );
+
+        // If the item is not in the cart, add it
+        if (!isItemInCart) {
+            setCart([...cart, item]);
+        }
+        console.log(cart)
+
+    };
+
+    const removeFromCart = (itemId) => {
+        setCart(cart.filter((item) => item.id !== itemId));
+    };
 
     const fetchProducts = async () => {
         await fetch('http://localhost:6060/api/products').then(async (res) => {
@@ -25,12 +44,12 @@ const ProductProvider = ({ children }) => {
     }, []);
 
     return (
-        <ProductContext.Provider value={{ products, loading, err }} >
+        <ProductContext.Provider value={{ products, loading, err, cart, addToCart, removeFromCart }} >
             {children}
         </ProductContext.Provider>
     )
 
 }
 
-export { ProductContext , ProductProvider};
+export { ProductContext, ProductProvider };
 
