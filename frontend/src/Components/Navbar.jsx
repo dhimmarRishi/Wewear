@@ -13,7 +13,7 @@ import { ProductContext } from './Context/ProductContext';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const {cart} = useContext(ProductContext)
+  const { cart } = useContext(ProductContext)
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen)
@@ -38,7 +38,6 @@ function Navbar() {
               <Link to={`/${text}`} key={text + 'link'}>
                 <ListItemText primary={text} />
               </Link>
-
             </ListItemButton>
           </ListItem>
         ))}
@@ -149,12 +148,15 @@ function Navbar() {
             <CiSearch />
 
           </IconButton>
-          <IconButton sx={{
-            mr: 2,
-            color: 'black'
-          }}>
-            <HiOutlineShoppingBag />
-          </IconButton>
+          <Link to='/account/cart' >
+            <IconButton sx={{
+              mr: 2,
+              color: 'black'
+            }}>
+              <HiOutlineShoppingBag />
+            </IconButton>
+          </Link>
+
         </Box>
 
 
