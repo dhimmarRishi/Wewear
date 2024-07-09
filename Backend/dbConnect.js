@@ -2,7 +2,7 @@ const { default: mongoose } = require('mongoose')
 
 require('dotenv').config()
 
-const connectToDB = () => {
+const connectToDb = () => {
     try {
         console.log(process.env.MONGODB_URI)
         const con = mongoose.connect(process.env.MONGODB_URI);
@@ -13,5 +13,5 @@ const connectToDB = () => {
 }
 
 module.exports = {
-    connectToDB
+    connectToDb
 }

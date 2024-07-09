@@ -2,8 +2,8 @@ import React from 'react'
 import './HomeProductCard.css'
 
 function HomeProductCard({product, onClick}) {
+  console.log(product)
   const { image, name, color, price } = product;
-  // console.log(product)
   return (
     <div className='p-1 card' onClick={onClick}>
       <div className='img-cover'>

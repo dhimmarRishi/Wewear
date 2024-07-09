@@ -6,7 +6,17 @@ import { useNavigate } from 'react-router-dom';
 function CartPage() {
     const { cart, removeFromCart } = useContext(ProductContext);
     const navigate = useNavigate();
-    let totalPrice = 0;
+
+
+    const calculateTotalPrice = () => {
+        return cart.reduce((total, product) => {
+            const productPrice = parseFloat(product.price.replace(',', '')) || 0;
+            const productQuantity = parseFloat(product.quantity) || 1;
+            return total + productPrice * productQuantity;
+        }, 0).toFixed(2);
+    };
+
+    const totalPrice = calculateTotalPrice();
 
     return (
         <Container sx={{ textAlign: 'center', mt: 3, fontFamily: 'Space Grotesk', border: '1px solid gray', padding: { xs: 0 } }}>
@@ -31,18 +41,18 @@ function CartPage() {
                                 </Box>
                             </Box>
                             <Box>
-                                <Typography>{Number.parseFloat(product.price.replace(',', '')) * Number.parseFloat(product.quantity)}</Typography>
-                                {totalPrice += Number.parseFloat(product.price.replace(',', '')) * Number.parseFloat(product.quantity)}
+                                <Typography>
+                                    {(parseFloat(product.price.replace(',', '')) * parseFloat(product.quantity)).toFixed(2)}
+                                </Typography>
                             </Box>
                         </Stack>
                     ))}
                     <Box mt={2}>
-                        <Typography variant="h6">Total Price: {totalPrice.toFixed(2)}</Typography>
+                        <Typography variant="h6">Total Price: {totalPrice}</Typography>
                     </Box>
                     <Button variant='contained' color='success'>Check Out</Button>
                 </Stack>
             )}
-
         </Container>
     );
 }

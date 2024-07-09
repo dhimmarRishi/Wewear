@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Divider, IconButton, InputBase, List, ListItem, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Container, Divider, IconButton, List, ListItem, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { SiStylelint } from "react-icons/si";
 import { FaInstagram, FaPinterest, FaTwitter } from "react-icons/fa";
@@ -76,38 +76,10 @@ function Footer() {
             <List dense={true}>
               <ListItem>Help</ListItem>
               <ListItem>Contact us</ListItem>
-              <ListItem>Exchanges & returns</ListItem>
-              <ListItem>FAQs</ListItem>
-              <ListItem>Size chart</ListItem>
-              <ListItem>Delivery info</ListItem>
-              <ListItem>Track your order</ListItem>
-              <ListItem>Offer T&Cs</ListItem>
+              <ListItem>About us</ListItem>
             </List>
           </Stack>
-          <Stack display={'flex'}>
-            <List dense={true}>
-              <ListItem>Help</ListItem>
-              <ListItem>Contact us</ListItem>
-              <ListItem>Exchanges & returns</ListItem>
-              <ListItem>FAQs</ListItem>
-              <ListItem>Size chart</ListItem>
-              <ListItem>Delivery info</ListItem>
-              <ListItem>Track your order</ListItem>
-              <ListItem>Offer T&Cs</ListItem>
-            </List>
-          </Stack>
-          <Stack display={'flex'}>
-            <List dense={true}>
-              <ListItem>Help</ListItem>
-              <ListItem>Contact us</ListItem>
-              <ListItem>Exchanges & returns</ListItem>
-              <ListItem>FAQs</ListItem>
-              <ListItem>Size chart</ListItem>
-              <ListItem>Delivery info</ListItem>
-              <ListItem>Track your order</ListItem>
-              <ListItem>Offer T&Cs</ListItem>
-            </List>
-          </Stack>
+          
 
         </Box>
       </Container >
@@ -119,3 +91,4 @@ function Footer() {
 }
 
 export default Footer
+

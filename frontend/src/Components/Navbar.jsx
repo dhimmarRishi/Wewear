@@ -109,7 +109,7 @@ function Navbar() {
           <Box display={'flex'} marginRight={5}>
             {MenuItems.map((item) => {
               return (
-                <Link to={`/${item}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/${item.split(' ').join('').toLowerCase()}`} style={{ textDecoration: 'none' }}>
                   <MenuButton key={item}>{item}</MenuButton>
                 </Link>
 

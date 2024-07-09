@@ -1,70 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
-import Container from '@mui/material/Container';
+const RegisterPage = () => {
+    const [formData, setFormData] = useState({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        address: '',
+    });
 
-import { Box, Typography, TextField, Button, FormLabel } from '@mui/material';
+    const [message, setMessage] = useState('');
 
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
-function CreateAccount() {
-  return (
-    <Container sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <Box sx={{
-        marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'left',
-        width: '100%',
-        maxWidth: 700,
+            const data = await response.json();
+            if (response.ok) {
+                setMessage(data.message);
+            } else {
+                setMessage(data.message || 'Registration failed');
+            }
+        } catch (error) {
+            setMessage('Registration failed');
+        }
+    };
 
-      }}
-      >
-        <Typography component="h1" variant="h6" align='center' sx={{
-          marginBottom: 4
-        }}>
-          Create Account
-        </Typography>
+    return (
+        <Container maxWidth="sm">
+            <Box my={4}>
+                <Typography variant="h4" component="h1" gutterBottom>
+                    Register
+                </Typography>
+                {message && (
+                    <Typography variant="body2" color="error">
+                        {message}
+                    </Typography>
+                )}
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="First Name"
+                        name="firstname"
+                        value={formData.firstname}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="Last Name"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="Password"
+                        name="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        required
+                    />
+                    <TextField
+                        label="Address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                    />
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        Register
+                    </Button>
+                </form>
+            </Box>
+        </Container>
+    );
+};
 
-        <FormLabel htmlFor='first-name' sx={{ fontSize: '0.875rem', mb: 1 }} >
-          First Name
-        </FormLabel>
-        <TextField id='first-name' size='small' required />
-        <FormLabel htmlFor='last-name' sx={{ fontSize: '0.875rem', mb: 1, mt: 2 }} >
-          Last Name
-        </FormLabel>
-        <TextField id='last-name' size='small' />
-        <FormLabel htmlFor='email' sx={{ fontSize: '0.875rem', mb: 1, mt: 2 }} >
-          Email
-        </FormLabel>
-        <TextField id='email' size='small' type='email' required />
-        <FormLabel htmlFor='pass' sx={{ fontSize: '0.875rem', mb: 1, mt: 2 }} >
-          Password
-        </FormLabel>
-        <TextField id='pass' size='small' type='password' required />
-        <FormLabel htmlFor='rpass' sx={{ fontSize: '0.875rem', mb: 1, mt: 2 }} >
-          Confirm-password
-        </FormLabel>
-        <TextField id='rpass' size='small' type='password' required />
-        <Link to={'/account/login'}>
-
-          <Button variant='contained' color='primary' fullWidth sx={{ mt: 3 }} >
-            Create Account
-          </Button>
-        </Link>
-
-
-        <Typography variant='h6' sx={{ fontSize: '0.8rem', mt: 1 }} align='center' >
-          Already have Account ? <Link to='/account/login'>Sign In</Link>
-        </Typography>
-
-      </Box>
-    </Container>
-  );
-}
-
-export default CreateAccount;
+export default RegisterPage;

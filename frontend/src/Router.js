@@ -6,12 +6,17 @@ import Home from "./Components/Home";
 import ProductPage from "./Components/ProductPage";
 import SingleProduct from "./Components/SingleProduct";
 import CartPage from "./Components/CartPage";
+import AboutUs from "./Components/AboutUs";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
     children: [
+      {
+        path : 'aboutus',
+        element: <AboutUs />
+      },
       {
         path: "account",
         children: [
